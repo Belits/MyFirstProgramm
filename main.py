@@ -1,7 +1,12 @@
-from PyQt5.QtWidgets import QApplication, QLabel
+import sys
+
+from PyQt5 import QtGui, QtWidgets
+from ui_main_form import Ui_MainWindow
 
 if __name__ == '__main__':
-    app = QApplication([])
-    label = QLabel("Hello world")
-    label.show()
-    app.exec()
+    app = QtWidgets.QApplication(sys.argv)
+    mainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(mainWindow)
+    mainWindow.show()
+    sys.exit(app.exec())
