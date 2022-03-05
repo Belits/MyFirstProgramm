@@ -1,12 +1,8 @@
 import sys
-
-from PyQt5 import QtGui, QtWidgets
-from ui_main_form import Ui_MainWindow
+from PyQt5 import QtWidgets
+from MainFormM import MainForm
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    mainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(mainWindow)
-    mainWindow.show()
-    sys.exit(app.exec())
+    mainWindow = MainForm()
+    sys.exit(app.exec_())
