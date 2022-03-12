@@ -1,4 +1,5 @@
-from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QColor, QImage
+from PyQt5.QtCore import QPoint
 
 class DrawedObject:
 
@@ -13,13 +14,13 @@ class DrawedObject:
     def Y(self):
         return self._y
 
-    def setCoords(self,newX,newY):
+    def setCoords(self, newX, newY):
         self._x = newX
         self._y = newY
 
     def paint(self, painter):
         painter.setPen(self._color)
-        painter.drawEllipse(self._x, self._y, 20, 20)
+        painter.drawImage(QPoint(self._x, self._y), QImage("redCircle.png"))
 
 class DrawMoveDiag(DrawedObject) :
     def __init__(self, x, y, color):

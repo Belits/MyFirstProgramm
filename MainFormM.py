@@ -13,7 +13,7 @@ class MainForm(QtWidgets.QMainWindow):
         self.setConnections()
         self.show()
         canvas = QtGui.QPixmap(400, 300)
-        canvas.fill()
+        canvas.convertFromImage(QtGui.QImage("background.png"))
         self.ui.drawField.setPixmap(canvas)
 
         self.__objList = [DrawMoveDiag(0, 0, QtGui.QColor('red')), DrawMoveVert(100, 100, QtGui.QColor('blue')),
@@ -28,6 +28,7 @@ class MainForm(QtWidgets.QMainWindow):
         self.ui.stopButton.clicked.connect(self.onStopButtonClicked)
         self.moveTimer.timeout.connect(self.onMoveTimerTimeout)
         self.ui.pushButton.clicked.connect(self.drawSomething)
+        self.ui.drawField.mousePressEvent = self.onPixmapClick
 
     def onActionGameSpeed(self):
         self.ui.aGSx1.setChecked(False)
@@ -52,7 +53,7 @@ class MainForm(QtWidgets.QMainWindow):
         self.drawSomething()
 
     def drawSomething(self):
-        self.ui.drawField.pixmap().fill()
+        self.ui.drawField.pixmap().convertFromImage(QtGui.QImage("background.png"))
         painter = QtGui.QPainter(self.ui.drawField.pixmap())
         for obj in self.__objList:
             obj.paint(painter)
@@ -60,3 +61,9 @@ class MainForm(QtWidgets.QMainWindow):
         painter.end()
         self.ui.drawField.repaint()
 
+    def onPixmapClick(self, event):
+        x = event.pos().x()
+        y = event.pos().y()
+        for obj in self.__objList:
+            if (x in range(obj.X(),obj.X()+20)) and (y in range(obj.Y(), obj.Y()+20)):
+                self.__objList.remove(obj)
